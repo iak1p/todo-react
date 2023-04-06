@@ -1,19 +1,18 @@
-import { useState } from "react";
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
 import Header from "./components/Header/Header";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
-  const [mod, setMod] = useState([]);
   let id = 0;
+  const items = useSelector((state) => state.items.data);
+  const dispatch = useDispatch();
 
   const a = () => {
-    console.log(1);
     id++;
-    let arr = mod;
+    let arr = items;
     arr.push({ id: id, name: id });
-    setMod(mod);
-    console.log(mod);
+    dispatch({ type: "SET_ITEMS", payload: arr });
   };
 
   return (
