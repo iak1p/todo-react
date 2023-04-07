@@ -1,15 +1,16 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import All from "../pages/All/All";
 import Completed from "../pages/Completed/Completed";
-import Main from "../pages/Main/Main";
+import Active from "../pages/Active/Active";
 
 export default function AppRoutes(props) {
-  const { onClick } = props;
-
   return (
     <Routes>
-      <Route path="/main" element={<Main onClick={onClick} />} />
+      <Route path="/active" element={<Active />} />
+      <Route path="/all" element={<All />} />
       <Route path="/completed" element={<Completed />} />
+      <Route path="/" element={<Navigate replace to="/main" />} />
     </Routes>
   );
 }
