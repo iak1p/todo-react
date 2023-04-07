@@ -17,11 +17,24 @@ export default function Note(props) {
     dispatch({ type: "SET_ITEMS", payload: arr });
   };
 
+  const setActiveItem = () => {
+    let arr = [];
+    items.forEach((el) => {
+      if (el.id === id) {
+        el.active = false;
+        arr.push(el);
+      } else arr.push(el);
+    });
+
+    dispatch({ type: "SET_ITEMS", payload: arr });
+  };
+
   return (
     <>
       <p>
         {item.name}
         <button onClick={deleteItem}>X</button>
+        <button onClick={setActiveItem}>V</button>
       </p>
     </>
   );

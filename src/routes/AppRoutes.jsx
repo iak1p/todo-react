@@ -10,7 +10,7 @@ export default function AppRoutes(props) {
       <Route path="/active" element={<Active />} />
       <Route path="/all" element={<All />} />
       <Route path="/completed" element={<Completed />} />
-      <Route path="/" element={<Navigate replace to="/main" />} />
+      <Route path="/" element={<Navigate replace to="/all" />} />
     </Routes>
   );
 }
