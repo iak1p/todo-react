@@ -1,6 +1,5 @@
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import AppRoutes from "./routes/AppRoutes";
 
 function App() {
@@ -9,9 +8,9 @@ function App() {
 
   return (
     <>
-      <div className="container">
+      <div>
         <Header />
-        <AppRoutes  />
+        <AppRoutes />
       </div>
     </>
   );
