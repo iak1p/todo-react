@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes, Navigate } from "react-router-dom";
-import All from "../pages/All/All";
-import Completed from "../pages/Completed/Completed";
-import Active from "../pages/Active/Active";
+import All from "../pages/All";
+import Completed from "../pages/Completed";
+import Active from "../pages/Active";
 
 export default function AppRoutes(props) {
   return (

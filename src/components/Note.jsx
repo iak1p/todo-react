@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Box, Button, Checkbox, Typography } from "@mui/material";
 
 export default function Note(props) {
+  const { active } = props;
   const items = useSelector((state) => state.items.data);
   const dispatch = useDispatch();
   const { item, id } = props;
@@ -31,11 +33,19 @@ export default function Note(props) {
 
   return (
     <>
-      <p>
-        {item.name}
-        <button onClick={deleteItem}>X</button>
-        <button onClick={setActiveItem}>V</button>
-      </p>
+      <Box>
+        <Checkbox onClick={setActiveItem} checked={active} />
+        <Typography
+          variant="p"
+          component="span"
+          sx={{ textTransform: "capitalize" }}
+        >
+          {item.name}
+        </Typography>
+        <Button variant="contained" onClick={deleteItem} size="small">
+          x
+        </Button>
+      </Box>
     </>
   );
 }
