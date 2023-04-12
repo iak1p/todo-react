@@ -33,16 +33,36 @@ export default function Note(props) {
 
   return (
     <>
-      <Box>
-        <Checkbox onClick={setActiveItem} checked={active} />
-        <Typography
-          variant="p"
-          component="span"
-          sx={{ textTransform: "capitalize" }}
+      <Box
+        sx={{
+          border: 1,
+          borderColor: "gray",
+          borderRadius: 1,
+          borderStyle: "solid",
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignContent: "center",
+          marginTop: "20px",
+          overflow: "hidden",
+        }}
+      >
+        <Box>
+          <Checkbox onClick={setActiveItem} checked={active} />
+          <Typography
+            variant="p"
+            component="span"
+            sx={{ textTransform: "capitalize" }}
+          >
+            {item.name}
+          </Typography>
+        </Box>
+        <Button
+          variant="contained"
+          onClick={deleteItem}
+          size="small"
+          sx={{ borderRadius: 0 }}
         >
-          {item.name}
-        </Typography>
-        <Button variant="contained" onClick={deleteItem} size="small">
           x
         </Button>
       </Box>

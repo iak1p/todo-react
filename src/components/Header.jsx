@@ -1,12 +1,14 @@
 import { Container } from "@mui/system";
-import React from "react";
 import { Link } from "react-router-dom";
 import { Typography, Stack, styled } from "@mui/material";
+import React from "react";
+import Form from "./Form";
 
 export default function Header() {
   const LinkText = styled(Typography)({
     fontSize: 16,
   });
+
   return (
     <>
       <Typography variant="h3" component="p" textAlign="center">
@@ -24,6 +26,7 @@ export default function Header() {
             <Link to="/completed">Сompleted</Link>
           </LinkText>
         </Stack>
+        <Form />
       </Container>
     </>
   );
