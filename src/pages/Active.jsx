@@ -1,24 +1,30 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import Note from "../components/Note";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Todo from "../components/Todo";
 import { Container } from "@mui/system";
+import Form from "../components/Form";
 
-export default function Active(props) {
-  const items = useSelector((state) => state.items.data);
+export default function Active() {
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_TODOS",
+      payload: JSON.parse(localStorage.getItem("todos")),
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <>
       <Container>
-        {items.map((item) => {
-          if (item.active)
-            return (
-              <Note
-                item={item}
-                key={item.id}
-                id={item.id}
-                active={!item.active}
-              />
-            );
+        <Form inputActive={true} />
+        {todos?.map((todo) => {
+          if (!todo.completed) return <Todo todo={todo} key={todo.id} />;
           else return null;
         })}
       </Container>

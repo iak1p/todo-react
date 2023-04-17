@@ -1,11 +1,10 @@
 import { TextField } from "@mui/material";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
-export default function Form() {
+export default function Form(props) {
+  const { inputActive } = props;
   const [value, setValue] = useState("");
-  const items = useSelector((state) => state.items.data);
-  const id = useSelector((state) => state.id);
   const dispatch = useDispatch();
 
   const handleChange = (event) => {
@@ -14,13 +13,17 @@ export default function Form() {
 
   const setItems = (event) => {
     event.preventDefault();
-    let arr = items;
-    let idOfItem = id + 1;
-    arr.push({ id: idOfItem, name: value, active: true });
-    dispatch({ type: "SET_ITEMS", payload: arr });
-    dispatch({ type: "SET_ID", payload: idOfItem });
+    dispatch({
+      type: "ADD_TODO",
+      payload: {
+        id: Math.floor(Math.random() * 999999),
+        todoText: value,
+        completed: false,
+      },
+    });
     setValue("");
   };
+
   return (
     <>
       <form onSubmit={setItems}>
@@ -31,6 +34,7 @@ export default function Form() {
           value={value}
           onChange={handleChange}
           sx={{ width: "100%", marginTop: "20px" }}
+          disabled={inputActive}
         />
       </form>
     </>

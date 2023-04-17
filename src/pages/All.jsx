@@ -1,30 +1,31 @@
 import { Container } from "@mui/system";
-import React from "react";
-import Note from "../components/Note";
-import { Box, styled } from "@mui/material";
+import Todo from "../components/Todo";
+import { useDispatch, useSelector } from "react-redux";
+import Form from "../components/Form";
+import React, { useEffect } from "react";
 
-export default function All(props) {
-  const { items } = props;
-  const ItemsList = styled(Box)({
-    display: "flex",
-    flexDirection: "column",
-  });
+export default function All() {
+  const todos = useSelector((state) => state.todos);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch({
+      type: "SET_TODOS",
+      payload: JSON.parse(localStorage.getItem("todos")),
+    });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <>
       <Container>
-        <ItemsList>
-          {items.map((item) => {
-            return (
-              <Note
-                item={item}
-                key={item.id}
-                id={item.id}
-                active={!item.active}
-              />
-            );
-          })}
-        </ItemsList>
+        <Form inputActive={false} />
+        {todos?.map((todo) => {
+          return <Todo key={todo.id} todo={todo} />;
+        })}
       </Container>
     </>
   );
