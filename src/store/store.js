@@ -22,6 +22,16 @@ const reducer = (state = initialStore, action) => {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
+    case "CHANGE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.todoText = action.payload.value;
+          }
+          return todo;
+        }),
+      };
     case "TOGGLE_ACTIVE":
       return {
         ...state,

@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Button, Checkbox, Typography } from "@mui/material";
+import { Box, Button, Checkbox, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ModeIcon from "@mui/icons-material/Edit";
+import { useEffect } from "react";
 
 export default function Todo(props) {
+  const [value, setValue] = useState("");
+  const dispatch = useDispatch();
+  const {
+    todo: { id, todoText, completed },
+  } = props;
+
   const style = {
     border: 1,
     borderColor: "gray",
@@ -18,10 +24,23 @@ export default function Todo(props) {
     overflow: "hidden",
   };
 
-  const dispatch = useDispatch();
-  const {
-    todo: { id, todoText, completed },
-  } = props;
+  const active = {
+    backgroundColor: "#d3d3d3",
+    border: 1,
+    borderColor: "gray",
+    borderRadius: 1,
+    borderStyle: "solid",
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    alignContent: "center",
+    marginTop: "20px",
+    overflow: "hidden",
+  };
+
+  useEffect(() => {
+    setValue(todoText);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteItem = () => {
     dispatch({ type: "DELETE_TODO", payload: id });
@@ -29,29 +48,35 @@ export default function Todo(props) {
   const toggleActiveItem = () => {
     dispatch({ type: "TOGGLE_ACTIVE", payload: id });
   };
+  const changeTodo = (event) => {
+    event.preventDefault();
+    dispatch({
+      type: "CHANGE_TODO",
+      payload: { value, id },
+    });
+    event.target[0].blur();
+  };
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+  const sx = completed ? active : style;
 
   return (
     <>
-      <Box sx={style}>
-        <Box>
+      <Box sx={sx}>
+        <Box sx={{ display: "flex", alignItems: "center" }}>
           <Checkbox onClick={toggleActiveItem} checked={completed} />
-          <Typography
-            variant="p"
-            component="span"
-            sx={{ textTransform: "capitalize" }}
-          >
-            {todoText}
-          </Typography>
+          <form onSubmit={changeTodo}>
+            <TextField
+              id="outlined-basic"
+              value={value}
+              variant="standard"
+              onChange={handleChange}
+              sx={{ width: "1000px" }}
+            />
+          </form>
         </Box>
         <Box>
-          <Button
-            variant="contained"
-            onClick={deleteItem}
-            size="small"
-            sx={{ borderRadius: 0, height: "100%" }}
-          >
-            <ModeIcon />
-          </Button>
           <Button
             variant="contained"
             onClick={deleteItem}
