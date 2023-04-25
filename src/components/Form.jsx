@@ -2,8 +2,7 @@ import { TextField } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-export default function Form(props) {
-  const { inputActive } = props;
+const Form = ({ inputActive }) => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
 
@@ -13,14 +12,16 @@ export default function Form(props) {
 
   const setItems = (event) => {
     event.preventDefault();
-    dispatch({
-      type: "ADD_TODO",
-      payload: {
-        id: Math.floor(Math.random() * 999999),
-        todoText: value,
-        completed: false,
-      },
-    });
+    if (value !== "") {
+      dispatch({
+        type: "ADD_TODO",
+        payload: {
+          id: Math.floor(Math.random() * 999999),
+          todoText: value,
+          completed: false,
+        },
+      });
+    }
     setValue("");
   };
 
@@ -39,4 +40,6 @@ export default function Form(props) {
       </form>
     </>
   );
-}
+};
+
+export default Form;

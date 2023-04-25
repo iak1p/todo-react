@@ -3,40 +3,14 @@ import { useDispatch } from "react-redux";
 import { Box, Button, Checkbox, TextField } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from "react";
+import { style, active } from "../styles/style.js";
 
-export default function Todo(props) {
+const Todo = (props) => {
   const [value, setValue] = useState("");
   const dispatch = useDispatch();
   const {
     todo: { id, todoText, completed },
   } = props;
-
-  const style = {
-    border: 1,
-    borderColor: "gray",
-    borderRadius: 1,
-    borderStyle: "solid",
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignContent: "center",
-    marginTop: "20px",
-    overflow: "hidden",
-  };
-
-  const active = {
-    backgroundColor: "#d3d3d3",
-    border: 1,
-    borderColor: "gray",
-    borderRadius: 1,
-    borderStyle: "solid",
-    width: "100%",
-    display: "flex",
-    justifyContent: "space-between",
-    alignContent: "center",
-    marginTop: "20px",
-    overflow: "hidden",
-  };
 
   useEffect(() => {
     setValue(todoText);
@@ -73,6 +47,9 @@ export default function Todo(props) {
               variant="standard"
               onChange={handleChange}
               sx={{ width: "1000px" }}
+              InputProps={{
+                disableUnderline: true,
+              }}
             />
           </form>
         </Box>
@@ -90,4 +67,6 @@ export default function Todo(props) {
       </Box>
     </>
   );
-}
+};
+
+export default Todo;

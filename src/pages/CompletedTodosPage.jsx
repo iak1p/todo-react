@@ -3,8 +3,9 @@ import { useSelector } from "react-redux";
 import Todo from "../components/Todo";
 import { Container } from "@mui/system";
 import Form from "../components/Form";
+import { memo } from "react";
 
-export default function Active() {
+const CompletedTodosPage = () => {
   const todos = useSelector((state) => state.todos);
 
   return (
@@ -12,10 +13,11 @@ export default function Active() {
       <Container>
         <Form inputActive={true} />
         {todos?.map((todo) => {
-          if (!todo.completed) return <Todo todo={todo} key={todo.id} />;
+          if (todo.completed) return <Todo todo={todo} key={todo.id} />;
           else return null;
         })}
       </Container>
     </>
   );
-}
+};
+export default memo(CompletedTodosPage);

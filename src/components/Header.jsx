@@ -4,7 +4,7 @@ import { Typography, Stack, Box, Button } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function Header() {
+const Header = () => {
   const todos = useSelector((state) => state.todos);
   const dispatch = useDispatch();
 
@@ -41,4 +41,6 @@ export default function Header() {
       </Container>
     </>
   );
-}
+};
+
+export default Header;

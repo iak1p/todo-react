@@ -2,9 +2,9 @@ import { Container } from "@mui/system";
 import Todo from "../components/Todo";
 import { useSelector } from "react-redux";
 import Form from "../components/Form";
-import React from "react";
+import React, { memo } from "react";
 
-export default function All() {
+const AllTodoPage = () => {
   const todos = useSelector((state) => state.todos);
 
   return (
@@ -17,4 +17,6 @@ export default function All() {
       </Container>
     </>
   );
-}
+};
+
+export default memo(AllTodoPage);

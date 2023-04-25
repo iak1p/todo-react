@@ -1,7 +1,9 @@
+import { memo } from "react";
 import Header from "./components/Header";
 import AppRoutes from "./routes/AppRoutes";
+import "./styles/style.css";
 
-function App() {
+const App = () => {
   return (
     <>
       <div>
@@ -10,6 +12,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default memo(App);
