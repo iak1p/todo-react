@@ -1,20 +1,34 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Box, Button, Checkbox, TextField } from "@mui/material";
+import { Box, Button, Checkbox, TextField, Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useEffect } from "react";
-import { style, active } from "../styles/style.js";
+import { style, active, timeleftStyle } from "./TodoStyle.js";
 
 const Todo = (props) => {
   const [value, setValue] = useState("");
+  const [[days, hours, minutes, seconds], setTime] = useState([0, 0, 0, 0]);
   const dispatch = useDispatch();
   const {
-    todo: { id, todoText, completed },
+    todo: { id, todoText, completed, endTime },
   } = props;
+  let sx = completed ? active : style;
 
+  function getTimeRemaining() {
+    let total = Date.parse(endTime) - Date.parse(new Date());
+    let seconds = Math.floor((total / 1000) % 60);
+    let minutes = Math.floor((total / 1000 / 60) % 60);
+    let hours = Math.floor((total / (1000 * 60 * 60)) % 24);
+    let days = Math.floor(total / (1000 * 60 * 60 * 24));
+    if (completed) return;
+    setTime([days, hours, minutes, seconds]);
+  }
   useEffect(() => {
     setValue(todoText);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    getTimeRemaining();
+    const timer = setInterval(() => getTimeRemaining(), 1000);
+    return () => clearInterval(timer);
+  }, [todoText]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteItem = () => {
     dispatch({ type: "DELETE_TODO", payload: id });
@@ -33,7 +47,6 @@ const Todo = (props) => {
   const handleChange = (event) => {
     setValue(event.target.value);
   };
-  const sx = completed ? active : style;
 
   return (
     <>
@@ -46,12 +59,24 @@ const Todo = (props) => {
               value={value}
               variant="standard"
               onChange={handleChange}
-              sx={{ width: "1000px" }}
+              sx={{ width: "850px" }}
               InputProps={{
                 disableUnderline: true,
               }}
             />
           </form>
+          <Typography
+            variant="p"
+            component="p"
+            textAlign="center"
+            sx={timeleftStyle}
+          >
+            {completed
+              ? "Completed"
+              : `${days ? days : "0"} days ${hours ? hours : "00"}:${
+                  minutes ? minutes : "00"
+                }:${seconds ? seconds : "00"} left`}
+          </Typography>
         </Box>
         <Box>
           <Button

@@ -1,5 +1,5 @@
 import { Container } from "@mui/system";
-import Todo from "../components/Todo";
+import Todo from "../components/Todo/Todo";
 import { useSelector } from "react-redux";
 import Form from "../components/Form";
 import React, { memo } from "react";

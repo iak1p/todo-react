@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useSelector } from "react-redux";
-import Todo from "../components/Todo";
+import Todo from "../components/Todo/Todo";
 import { Container } from "@mui/system";
 import Form from "../components/Form";
 

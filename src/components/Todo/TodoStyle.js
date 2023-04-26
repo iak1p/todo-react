@@ -24,3 +24,7 @@ export const active = {
   marginTop: "20px",
   overflow: "hidden",
 };
+
+export const timeleftStyle = {
+  fontSize:"18px"
+}

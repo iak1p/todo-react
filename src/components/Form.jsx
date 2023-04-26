@@ -19,6 +19,7 @@ const Form = ({ inputActive }) => {
           id: Math.floor(Math.random() * 999999),
           todoText: value,
           completed: false,
+          endTime: event.target[2].value,
         },
       });
     }
@@ -27,7 +28,7 @@ const Form = ({ inputActive }) => {
 
   return (
     <>
-      <form onSubmit={setItems}>
+      <form onSubmit={setItems} className="add-todo__form">
         <TextField
           id="outlined-basic"
           label="What is need to be done?"
@@ -37,6 +38,7 @@ const Form = ({ inputActive }) => {
           sx={{ width: "100%", marginTop: "20px" }}
           disabled={inputActive}
         />
+        <input type="date" id="date"></input>
       </form>
     </>
   );
