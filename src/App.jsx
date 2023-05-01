@@ -1,11 +1,9 @@
-import { useDispatch, useSelector } from "react-redux";
+import { memo } from "react";
 import Header from "./components/Header";
 import AppRoutes from "./routes/AppRoutes";
+import "./AppStyle.css";
 
-function App() {
-  const items = useSelector((state) => state.items.data);
-  const dispatch = useDispatch();
-
+const App = () => {
   return (
     <>
       <div>
@@ -14,6 +12,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default memo(App);

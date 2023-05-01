@@ -3,18 +3,45 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 const initialStore = {
-  items: {
-    data: [],
-  },
-  id: 0,
+  todos: [],
 };
 
 const reducer = (state = initialStore, action) => {
   switch (action.type) {
-    case "SET_ITEMS":
-      return { ...state, items: { ...state.items, data: action.payload } };
-    case "SET_ID":
-      return { ...state, id: action.payload };
+    case "ADD_TODO":
+      return { ...state, todos: [...state.todos, action.payload] };
+    case "SET_TODOS":
+      return { ...state, todos: action.payload };
+    case "DELETE_TODOS":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.completed !== true),
+      };
+    case "DELETE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => todo.id !== action.payload),
+      };
+    case "CHANGE_TODO":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => {
+          if (todo.id === action.payload.id) {
+            todo.todoText = action.payload.value;
+          }
+          return todo;
+        }),
+      };
+    case "TOGGLE_ACTIVE":
+      return {
+        ...state,
+        todos: state.todos.filter((todo) => {
+          if (todo.id === action.payload) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
+        }),
+      };
     default:
       return state;
   }
