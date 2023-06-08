@@ -1,7 +1,5 @@
 # Getting Started with Create React App
 
-PENIS
-
 ## Available Scripts
 
 In the project directory, you can run:
